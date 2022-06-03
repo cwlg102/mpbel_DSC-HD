@@ -10,13 +10,14 @@ section2 = 0
 start = time.time()
 for k in range(len(loaded1)):
     for i in range(len(loaded1[k])):
-        for j in range(len(loaded1[k][i])):
-            if loaded1[k][i][j] == loaded2[k][i][j] and loaded1[k][i][j] == True:
-                intersection += 1
-            if loaded1[k][i][j] == True:
-                section1 += 1
-            if loaded2[k][i][j] == True:
-                section2 += 1
+        if True in loaded1[k][i] or True in loaded2[k][i]:
+            for j in range(len(loaded1[k][i])):
+                if loaded1[k][i][j] == loaded2[k][i][j] and loaded1[k][i][j] == True:
+                    intersection += 1
+                if loaded1[k][i][j] == True:
+                    section1 += 1
+                if loaded2[k][i][j] == True:
+                    section2 += 1
             
 print('3차원배열 포문 돌린거:', (2*intersection)/(section1+section2))
 print('시간', time.time()-start)
