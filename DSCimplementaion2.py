@@ -5,7 +5,7 @@ from scipy.spatial.distance import directed_hausdorff
 loaded1 = np.load('vol1.npy')
 loaded2 = np.load('vol2.npy')
 start = time.time()
-intersection = loaded1 * loaded2 #아이디어의 핵심 => 둘의 스칼라값 끼리 곱하면 True*True == True이므로 , 같은 True값 거르기 가능
+intersection = loaded1 * loaded2 #아이디어 => 둘의 스칼라값 끼리 곱하면 True*True == True이므로 , 같은 True값 거르기 가능
 res = 0
 res1 = 0
 res2 = 0
