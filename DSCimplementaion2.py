@@ -9,6 +9,10 @@ intersection = loaded1 * loaded2 #아이디어 => 둘의 스칼라 곱하면(행
 res = 0
 res1 = 0
 res2 = 0
+###############for문 더 줄이는 법###################
+n=intersection[intersection==True] #intersection안에서 True인것들만 뽑아서 1차원화
+print(np.shape(n))
+#################################################
 for k in range(len(intersection)):
     for i in range(len(intersection[k])):
         res += np.count_nonzero(intersection[k][i] == True)
