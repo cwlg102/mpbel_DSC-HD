@@ -39,12 +39,12 @@ def main():
                 dista = np.linalg.norm(a - b)
                 if dmin > dista:
                     dmin = dista
-                #최솟값중 최댓값을 구하는것이 HD
-                #반복을 할때 1->2 1번 기하의 한 점에서 2번 기하의 점들을 도는게 안쪽 루프문
-                #바깥쪽루프를 한번 돌고나면 최솟값이 하나 나옴
+                #최솟값중 최댓값을 구하는것이 Hausdorff Distance.
+                #반복을 할때 1->2라고 하면 1번 기하의 한 점에서 2번 기하의 점들을 도는게 안쪽 루프문
+                #바깥쪽 루프를 한번 돌고나면 최솟값이 하나 나옴
                 #그리고 (기존의 최솟값들중 최댓값)과 비교하여 크면 업데이트를 하고 아니면 안함
-                #근데 근데 안쪽 루프를 돌때, 1번기하의 한점과 2번기하의 임의의 한 점에대한 거리 계산 값이 (기존의 최솟값들 중 최댓값) 보다 작으면
-                #안쪽루프는 작을수록 최솟값을 업데이트 하는 구조인데, 그 값보다 더 큰값이 나오지 않을 것이라는게 자명함
+                #안쪽 루프를 돌때, 1번기하의 한점과 2번기하의 임의의 한 점에대한 거리 계산 값이 (기존의 최솟값들 중 최댓값) 보다 작으면 break
+                #안쪽 루프는 작을수록 최솟값을 업데이트 하는 구조인데, 그 값보다 더 큰값이 나오지 않을 것이라는게 자명함
                 #dmax가 구한 distance보다 클 경우 break을 하면 됨.
                 if dmax > dista:
                     break
@@ -54,10 +54,10 @@ def main():
         result.append(dmax)
         resultfunc.append(directed_hausdorff(arr1, arr2)[0])
 
-    print('chan:', max(result))
-    print('chan:', min(result))
-    print('함수:', max(resultfunc))
-    print('함수:', min(resultfunc))
+    print('chan최대:', max(result))
+    print('chan최소:', min(result))
+    print('함수최대:', max(resultfunc))
+    print('함수최소:', min(resultfunc))
 
     for i in range(len(result)):
         if result[i] >= 0.95*max(result):
@@ -70,9 +70,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
 
 
 
