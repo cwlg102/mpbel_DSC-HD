@@ -2,13 +2,13 @@ import time
 import numpy as np
 from scipy.spatial import distance
 from scipy.spatial.distance import directed_hausdorff
-def main():
+def HausbyChan():
     load1 = np.load('vol1_surf.npy') * 1
     load2 = np.load('vol2_surf.npy') * 1
     result = []
-    resultfunc = []
+    #resultfunc = []
     for k in range(len(load1)):
-        print('진행상황:', (k/len(load1))*100)
+        #print('진행상황:', (k/len(load1))*100)
         insec = load1[k] * load2[k]
         load1[k] -= insec #load1->load2 기준 거리 겹치는거 빼도됨!
         p1 = np.where(load1[k]==1)
@@ -26,7 +26,7 @@ def main():
 
         if len(arr1) == 0 or len(arr2) == 0:
             continue
-
+        
         np.random.shuffle(arr1)
         np.random.shuffle(arr2)
 
@@ -52,24 +52,52 @@ def main():
                 dmax = dmin
 
         result.append(dmax)
-        resultfunc.append(directed_hausdorff(arr1, arr2)[0])
+        #resultfunc.append(directed_hausdorff(arr1, arr2)[0])
 
     print('chan최대:', max(result))
+   
     print('chan최소:', min(result))
-    print('함수최대:', max(resultfunc))
-    print('함수최소:', min(resultfunc))
+    
 
     for i in range(len(result)):
         if result[i] >= 0.95*max(result):
             result[i] = min(result)
+    print('95%\chan:', max(result))
+start = time.time()
+HausbyChan()
+print('시간:', time.time()-start)
+
+def HausbyFunc():
+    load1 = np.load('vol1_surf.npy') * 1
+    load2 = np.load('vol2_surf.npy') * 1
+    resultfunc = []
+    for k in range(len(load1)):
+        #print('진행상황:', (k/len(load1))*100)
+        insec = load1[k] * load2[k]
+        load1[k] -= insec #load1->load2 기준 거리 겹치는거 빼도됨!
+        p1 = np.where(load1[k]==1)
+        p2 = np.where(load2[k]==1)
+
+        arr1 = np.zeros([len(p1[0]), 2])
+        arr2 = np.zeros([len(p2[0]), 2])
+    
+        for i in range(len(p1[0])):
+            arr1[i][0] = p1[0][i]
+            arr1[i][1] = p1[1][i]
+        for i in range(len(p2[0])):
+            arr2[i][0] = p2[0][i]
+            arr2[i][1] = p2[1][i]
+
+        if len(arr1) == 0 or len(arr2) == 0:
+            continue
+        resultfunc.append(directed_hausdorff(arr1, arr2)[0])
+    print('함수 최대:', max(resultfunc))
+    print('함수 최소:', min(resultfunc))
     for i in range(len(resultfunc)):
         if resultfunc[i] >= 0.95*max(resultfunc):
             resultfunc[i] = min(resultfunc)
-    print('95%\chan:', max(result))
-    print('95%함수:', max(resultfunc))
+    print('함수 95%:', max(resultfunc))
 
-if __name__ == '__main__':
-    main()
-
-
-
+start = time.time()
+HausbyFunc()
+print('시간:', time.time()-start)
