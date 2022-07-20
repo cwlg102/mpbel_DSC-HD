@@ -15,9 +15,9 @@ def DicebyChan():
         if np.all(loaded1[k] == False) or np.all(loaded2[k] == False):
             result.append(0)
             continue
-        gyojiphap_length = len(np.where(intersection[k]==True)[0]) * 2
-        hapjiphap_length = len(np.where(loaded1[k] == True)[0]) + len(np.where(loaded2[k] == True)[0])
-        result.append(gyojiphap_length/hapjiphap_length)
+        intersection_length = len(np.where(intersection[k]==True)[0]) * 2
+        union_length = len(np.where(loaded1[k] == True)[0]) + len(np.where(loaded2[k] == True)[0])
+        result.append(intersection_length/union_length)
 
     print(max(result))
     
